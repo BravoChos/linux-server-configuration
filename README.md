@@ -129,3 +129,88 @@ $ sudo dpkg-reconfigure tzdata
 2. And choose UTC
 
 ## Prepare to deploy your project
+
+### install Apache engine
+
+1. Install apache software as grader.
+```bash
+$ sudo apt-get install apache2
+```
+
+Enter public IP of the Amazon EC2 instance into browser to check whether Apache installed or not. If success, it displays the APACHE PAGE. 
+
+2. Install several library functions of apache using the command
+```bash
+$ sudo apt-get install libapache2-mod-wsgi-py3
+$ sudo a2enmod wsgi
+$ sudo apt-get install libpq-dev python-dev
+```
+
+### Install git and clone project
+
+1. 
+```bash
+$ sudo apt-get install git
+```
+
+2. Configure your username and email. 
+```bash
+$ git config --global user.name <username> 
+$ git config --global user.email <email>
+```
+
+3. From /var/www/, make new directory and change the owner to grader
+```bash
+$ mkdir catalog
+$ sudo chown -R grader:grader catalog
+```
+
+4. From /var/www/, make new directory and change the owner to grader
+```bash
+$ mkdir catalog
+$ sudo chown -R grader:grader catalog
+```
+
+5. Clone you project on /var/www/catalog .
+```bash
+cd /var/www/catalog
+$ git clone git@github.com:DeepLearnerSC/item-catalog.git
+```
+
+6. Create .wsgi file
+```bash
+$ touch catalog.wsgi
+$ nano catalog.wsgi
+```
+
+the content is the following
+```bash
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/catalog/")
+
+from catalog import app as application
+application.secret_key = 'superUltraSecret'
+``` 
+
+### installing the virtual environment for python
+
+1. From /var/www/catalog/catalog directory install pip:
+```bash
+$ sudo apt-get install python3-pip
+```
+2. Install the virtual environment:
+```
+$ sudo apt-get install python-virtualenv
+```
+3. Create the virtual environment:
+```
+$ sudo virtualenv -p python3 venv3.
+```
+4. Change the ownership to grader with:
+```
+$ sudo chown -R grader:grader venv3.
+```
+
+### install all the dependency
