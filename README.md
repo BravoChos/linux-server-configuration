@@ -73,36 +73,59 @@ $ sudo ufw status -- check current status of ufw
 $ sudo adduser grader
 ```
 
-2. 
-
-Create a new directory in sudoer directory with sudo nano /etc/sudoers.d/grader
-
-Add grader ALL=(ALL:ALL) ALL in nano editor
-
-Run sudo nano /etc/hosts
-
+2. Create a new directory in sudoer directory 
 ```bash
- 127.0.1.1 ip-XX-XX-XX-XX
+sudo nano /etc/sudoers.d/grader
 ```
 
-Set SSH keys for grader user with ssh-keygen in your local machine.
+and add the following.
+```
+grader ALL=(ALL:ALL) ALL 
+```
 
-Copy the generated SSH to a virtual environment.
+3. Now let's comeback to our local terminal (not Lightsail)
+4. Generate ssh-keygen in your local machine for 'grader' user
 
-Run the following command in your virtual environment.
+```bash
+$ ssh-keygen
+```
+5. Copy the generated SSH to a virtual environment (Lightsail).
 
-su - grader
+6. Then on you VM terminal, create the .ssh directory and create authorized_keys file.
 
-mkdir .ssh
+```bash
+$ su - grader
+$ mkdir .ssh
+$ touch .ssh/authorized_keys
+```
 
-touch .ssh/authorized_keys
+7. Copy your SSH key we've created on step 5.
+```bash
+$ nano .ssh/authorized_keys 
+```
+8. Reload SSH
+```bash
+$ sudo service ssh restart
+```
 
-nano .ssh/authorized_keys and copy your generated SSH key here.
+9. Test if ou can login grader user.
 
-Reload SSH with service ssh restart
+10. If succeeded, disable rootlogin.
+```bash
+$ nano /etc/ssh/sshd_config
+```
+11. Find 'PermitRootLogin' and change it to no.
 
-Then now you can login grader user.
+## Update all packages
+```bash 
+$ sudo apt-get update 
+$ sudo apt-get upgrade
+```
 
-Disable rootlogin.
+1. Set up local time zone
+```bash
+$ sudo dpkg-reconfigure tzdata 
+```
+2. And choose UTC
 
-Open /etc/ssh/sshd_config and find PermitRootLogin and change it to no.
+## Prepare to deploy your project
