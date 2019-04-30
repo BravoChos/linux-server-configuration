@@ -148,7 +148,7 @@ $ sudo apt-get install libpq-dev python-dev
 
 ### Install git and clone project
 
-1. 
+1. Install the git
 ```bash
 $ sudo apt-get install git
 ```
@@ -206,11 +206,114 @@ $ sudo apt-get install python-virtualenv
 ```
 3. Create the virtual environment:
 ```
-$ sudo virtualenv -p python3 venv3.
+$ sudo virtualenv -p python3 venv3
 ```
 4. Change the ownership to grader with:
 ```
-$ sudo chown -R grader:grader venv3.
+$ sudo chown -R grader:grader venv3
+```
+5. To begin using the virtual environment, it needs to be activated:
+```bash
+$ source venv/bin/activate
 ```
 
 ### install all the dependency
+
+```bash
+pip install httplib2
+pip install requests
+pip install --upgrade oauth2client
+pip install sqlalchemy
+pip install flask
+sudo apt-get install libpq-dev
+pip install psycopg2
+```
+
+### Configure Apache
+1. Create a config file
+
+```bash
+$ sudo nano /etc/apache2/sites-available/catalog.conf
+```
+
+2. Add the following lines:
+
+```bash
+<VirtualHost *:80>
+    ServerName YOUR_REMOTE_IP
+    ServerAlias YOUR_REMOTE_NAME_SERVER (optional)
+    ServerAdmin ubuntu@YOUR_REMOTE_IP
+    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/catalog/venv3/lib/python3.6/site-packages
+    WSGIProcessGroup catalog
+    WSGIScriptAlias / /var/www/catalog/catalog.wsgi
+    <Directory /var/www/catalog/catalog/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/catalog/catalog/static
+    <Directory /var/www/catalog/catalog/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+3. Enable the virtual host by using the command:
+
+
+```bash
+$ sudo a2ensite catalog
+```
+
+4. Type the following command for restarting the apache:
+
+```bash
+$ service apache2 reload
+$ service apache2 restart
+```
+## Install and configure PostgreSQL
+
+1.  install PostgreSQL
+```bash
+
+$ sudo apt-get install postgresql
+```
+
+2. Switch to the postgres user: 
+
+```bash
+$ sudo su - postgres
+```
+
+3. Open PostgreSQL interactive terminal with ```psql```
+```
+$ psql
+```
+
+4. Open PostgreSQL interactive terminal with psql
+```bash
+postgres=# CREATE ROLE catalog WITH LOGIN PASSWORD 'catalog';
+postgres=# ALTER ROLE catalog CREATEDB;
+postgres=# CREATE DATABASE catalog WITH OWNER catalog;
+```
+
+5. Connect to the DB with \c catalog
+```
+postgres=# \c catalog
+```
+
+6. Revoke all rights 
+
+```
+REVOKE ALL ON SCHEMA public FROM public;
+```
+7. Change a grand from public to catalog 
+```
+GRANT ALL ON SCHEMA public TO catalog;
+```
+8. Logout from postgress and return to the grader user \q and exit
+
+## deploy project
