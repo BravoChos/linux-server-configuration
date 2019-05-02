@@ -26,7 +26,8 @@
 
 
 1. Go to account page from your AWS account.
-  <img src="Assets/configuration/1.png" width="400">
+<img src="Assets/configuration/1.png" width="400">
+
 2. Download your SSH key (ex. LightsailDefaultPrivateKey-2.pem)
 
 3. Navigate to the directory where your file is stored in your terminal.
