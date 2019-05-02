@@ -214,19 +214,19 @@ $ sudo chown -R grader:grader venv3
 ```
 5. To begin using the virtual environment, it needs to be activated:
 ```bash
-$ source venv/bin/activate
+$ source venv3/bin/activate
 ```
 
 ### install all the dependency
 
 ```bash
-pip install httplib2
-pip install requests
-pip install --upgrade oauth2client
-pip install sqlalchemy
-pip install flask
+pip3 install httplib2
+pip3 install requests
+pip3 install --upgrade oauth2client
+pip3 install sqlalchemy
+pip3 install flask
 sudo apt-get install libpq-dev
-pip install psycopg2
+pip3 install psycopg2
 ```
 
 ### Configure Apache
