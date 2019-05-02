@@ -28,17 +28,23 @@
 1. Go to account page from your AWS account.
   <img src="Assets/configuration/1.png" width="400">
 2. Download your SSH key (ex. LightsailDefaultPrivateKey-2.pem)
+
 3. Navigate to the directory where your file is stored in your terminal.
+
 4. Move the private key file into the folder ~/.ssh
+
   ```bash
   $ mv /(current_private_key_address)/udacity_key.rsa ~/.ssh/
   ```
+
 5. Change the key permission so that only owner can read and write
 
 ```
 $ chmod 600 ~/.ssh/udacity_key.rsa
 ```
+
 6. Let's log into out instance with SSH
+
 
 ```bash
 $ ssh -i ~/.ssh/lightsail_key.rsa ubuntu@18.236.152.12
