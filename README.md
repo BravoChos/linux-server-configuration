@@ -33,9 +33,9 @@
 
 4. Move the private key file into the folder ~/.ssh
 
-  ```bash
-  $ mv /(current_private_key_address)/udacity_key.rsa ~/.ssh/
-  ```
+```bash
+$ mv /(current_private_key_address)/udacity_key.rsa ~/.ssh/
+```
 
 5. Change the key permission so that only owner can read and write
 
