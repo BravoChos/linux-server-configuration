@@ -327,7 +327,7 @@ GRANT ALL ON SCHEMA public TO catalog;
 ```
 8. Logout from postgress and return to the grader user \q and exit
 
-## deploy project
+## Deploy project
 
 1. Restart Apache 
 ```bash
@@ -347,3 +347,14 @@ $ python3 __init__.py
 ```bash
 $ sudo tail /var/log/apache2/error.log
 ```   
+
+## Reference
+
+
+[1] [Understanding File Permission](https://www.maketecheasier.com/file-permissions-what-does-chmod-777-means/)
+
+[2] [Understanding public key private key concepts](http://blakesmith.me/2010/02/08/understanding-public-key-private-key-concepts.html)
+
+[3] [nanodegree-linux-server-troubleshoot](https://github.com/jungleBadger/-nanodegree-linux-server-troubleshoot/blob/master/python3+venv+wsgi/README.md)
+
+[4] [How To Deploy a Python Flask Application with Apache and mod_wsgi](https://www.youtube.com/watch?v=x6SvecADw2M)
