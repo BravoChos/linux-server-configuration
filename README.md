@@ -1,5 +1,9 @@
 # linux-server-configuration
+##Server Details
 
+  IP address : http://13.125.243.217/
+  
+  SSH port : 2200
 
 ## Get your server (Amazon LightSail)
   1. Log in!
@@ -243,7 +247,7 @@ $ sudo nano /etc/apache2/sites-available/catalog.conf
     ServerName YOUR_REMOTE_IP
     ServerAlias YOUR_REMOTE_NAME_SERVER (optional)
     ServerAdmin ubuntu@YOUR_REMOTE_IP
-    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/catalog/venv3/lib/python3.6/site-packages
+    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/catalog:/var/www/catalog/catalog/venv3/lib/python3.6/site-packages
     WSGIProcessGroup catalog
     WSGIScriptAlias / /var/www/catalog/catalog.wsgi
     <Directory /var/www/catalog/catalog/>
@@ -317,3 +321,22 @@ GRANT ALL ON SCHEMA public TO catalog;
 8. Logout from postgress and return to the grader user \q and exit
 
 ## deploy project
+
+1. Restart Apache 
+```bash
+sudo service apache2 restart 
+```
+
+2. Execute project 
+```bash
+$ python3 __init__.py
+``` 
+3. The EndGame.
+
+## How to Debug
+
+1. Retrieve the error with the following command!
+
+```bash
+$ sudo tail /var/log/apache2/error.log
+```   
